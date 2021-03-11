@@ -1,0 +1,5 @@
+@import "./common.css";
+
+ul li, ol li {
+  list-style: none;
+}
