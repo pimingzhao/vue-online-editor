@@ -19,7 +19,7 @@ export default {
     return {
       comp: null,
       id: ""
-    }
+    };
   },
   computed: {
     code() {
@@ -87,7 +87,7 @@ export default {
         const Profile = Vue.extend(childVue);
         this.comp = new Profile().$mount();
         this.$refs.display.appendChild(this.comp.$el);
-        
+
         if (css !== "") {
           const id = uuid();
           this.id = id;

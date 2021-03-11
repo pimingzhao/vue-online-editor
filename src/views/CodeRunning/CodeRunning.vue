@@ -58,7 +58,7 @@ export default {
       const code = await this.$store.dispatch("doCopy");
       const input = document.createElement("input");
       document.body.appendChild(input);
-      input.type = "text"
+      input.type = "text";
       input.value = code;
       input.style.position = "absolute";
       input.style.zIndex = -999;

@@ -1,14 +1,18 @@
 /*
  * @Author: pimzh
  * @Date: 2021-03-09 16:01:01
- * @LastEditTime: 2021-03-09 16:02:53
+ * @LastEditTime: 2021-03-11 14:06:16
  * @LastEditors: pimzh
- * @Description: 
+ * @Description:
  */
 module.exports = {
   root: true,
   env: {
     node: true
+  },
+  extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
+  parserOptions: {
+    parser: "babel-eslint"
   },
   rules: {
     "no-console": 0,

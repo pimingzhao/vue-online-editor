@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       openNames: []
-    }
+    };
   },
   computed: {
     menuList() {
@@ -50,5 +50,5 @@ export default {
       this.$store.commit("SET_SELECTED_MENU", name);
     }
   }
-}
+};
 </script>

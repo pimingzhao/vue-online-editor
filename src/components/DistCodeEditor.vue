@@ -109,7 +109,7 @@ export default {
         if (!val) {
           return;
         }
-        this.code = this.initCode
+        this.code = this.initCode;
         this.$store.dispatch("doRun");
       },
       immediate: true

@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 11:05:29
- * @LastEditTime: 2021-03-11 10:26:46
+ * @LastEditTime: 2021-03-11 14:08:05
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -47,7 +47,7 @@
 
 <script>
 import { mapState } from "vuex";
-import SiderMenu from './components/SiderMenu.vue';
+import SiderMenu from "./components/SiderMenu.vue";
 
 export default {
   name: "layout",
@@ -133,5 +133,8 @@ export default {
 }
 .container {
   padding: 15px 20px;
+}
+.layout {
+  border: none;
 }
 </style>

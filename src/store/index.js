@@ -50,7 +50,7 @@ export default new Vuex.Store({
         query: {
           template: seletedMenu
         }
-      })
+      });
     },
     SET_MENU(state, menu) {
       state.menu = menu;
@@ -83,7 +83,8 @@ export default new Vuex.Store({
       const res = await getMenu(name);
       if (res) {
         commit("SET_MENU", res.components);
-        !router.currentRoute.query.template && commit("SET_SELECTED_MENU", res.components[0].name);
+        !router.currentRoute.query.template &&
+          commit("SET_SELECTED_MENU", res.components[0].name);
       }
     }
   }
