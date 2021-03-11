@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 11:05:29
- * @LastEditTime: 2021-03-11 14:08:05
+ * @LastEditTime: 2021-03-11 15:11:49
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -14,9 +14,19 @@
         theme="light"
         :active-name="environment"
       >
-        <div class="layout-lg flex items-center text-primary">
-          <Icon class="vertical-mid" size="30" type="logo-codepen" />
-          <span class="text-big font-bold logo-title">vue online editor</span>
+        <div class="flex items-center">
+          <div class="layout-lg flex items-center text-primary">
+            <Icon class="vertical-mid" size="30" type="logo-codepen" />
+            <span class="text-big font-bold logo-title">vue online editor</span>
+          </div>
+          <ul class="flex items-center btns text-md">
+            <li class="btn" v-for="item in btns" :key="item.title">
+              <span class="btn-rel cursor-pointer" @click="item.event">
+                <Icon :type="item.icon" size="20" />
+                <span>{{ item.title }}</span>
+              </span>
+            </li>
+          </ul>
         </div>
         <div class="llayout-box">
           <MenuItem
@@ -57,6 +67,23 @@ export default {
   data() {
     return {
       isCollapsed: false,
+      btns: [
+        {
+          title: "运行",
+          icon: "ios-play-outline",
+          event: this.runCode
+        },
+        {
+          title: "重置",
+          icon: "ios-refresh",
+          event: this.resetCode
+        },
+        {
+          title: "复制",
+          icon: "ios-copy-outline",
+          event: this.copyCode
+        }
+      ],
       menuList: [
         {
           title: "View Design",
@@ -84,6 +111,27 @@ export default {
     },
     menuitemClasses() {
       return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
+    }
+  },
+  methods: {
+    runCode() {
+      this.$store.dispatch("doRun");
+    },
+    resetCode() {
+      this.$store.dispatch("doReset");
+    },
+    async copyCode() {
+      const code = await this.$store.dispatch("doCopy");
+      const input = document.createElement("input");
+      document.body.appendChild(input);
+      input.type = "text";
+      input.value = code;
+      input.style.position = "absolute";
+      input.style.zIndex = -999;
+      input.select();
+      document.execCommand("Copy"); // 执行浏览器复制命令
+      this.$Message.success("复制成功！");
+      document.body.removeChild(input);
     }
   }
 };
@@ -136,5 +184,11 @@ export default {
 }
 .layout {
   border: none;
+}
+.btn {
+  margin-left: 15px;
+}
+.btn .btn-rel:hover {
+  color: #2d8cf0;
 }
 </style>

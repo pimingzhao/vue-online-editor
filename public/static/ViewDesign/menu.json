@@ -8,6 +8,10 @@
     {
       "name": "Icon",
       "title": "图标"
+    },
+    {
+      "name": "Collapse",
+      "title": "折叠面板"
     }
   ]
 }

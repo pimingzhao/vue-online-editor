@@ -28,7 +28,6 @@
 .overflow-y-auto {
   overflow-y: auto;
 }
-
 .text-center {
   text-align: center;
 }
@@ -38,9 +37,18 @@
 .text-big {
   font-size: 22px;
 }
+.text-md {
+  font-size: 18px;
+}
 .font-bold {
   font-weight: bold;
 }
 .vertical-mid {
   vertical-align: middle;
+}
+.inline-block {
+  display: inline-block;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
