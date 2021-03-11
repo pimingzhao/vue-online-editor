@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 11:10:32
- * @LastEditTime: 2021-03-11 14:29:24
+ * @LastEditTime: 2021-03-11 15:38:12
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -33,7 +33,8 @@ export default {
 
 <style scoped>
 .split-wrapper {
-  padding: 15px 10px 0;
+  padding: 5px;
+  background-color: #ffffff;
 }
 .code-run {
   padding-left: 15px;

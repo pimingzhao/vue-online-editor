@@ -2,6 +2,10 @@
   "descrip": "在node环境下直接读取文件目录获取内容，不通过改文件获取侧边栏节点",
   "components": [
     {
+      "name": "Template",
+      "title": "模板"
+    },
+    {
       "name": "Layout",
       "title": "布局"
     },
