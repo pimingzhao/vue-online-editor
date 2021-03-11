@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 11:05:29
- * @LastEditTime: 2021-03-11 15:11:49
+ * @LastEditTime: 2021-03-11 15:19:25
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -122,9 +122,8 @@ export default {
     },
     async copyCode() {
       const code = await this.$store.dispatch("doCopy");
-      const input = document.createElement("input");
+      const input = document.createElement("textarea");
       document.body.appendChild(input);
-      input.type = "text";
       input.value = code;
       input.style.position = "absolute";
       input.style.zIndex = -999;
