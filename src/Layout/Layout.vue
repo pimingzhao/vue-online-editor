@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 11:05:29
- * @LastEditTime: 2021-03-11 15:19:25
+ * @LastEditTime: 2021-03-11 16:21:28
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -13,6 +13,7 @@
         mode="horizontal"
         theme="light"
         :active-name="environment"
+        @on-select="handleSelect"
       >
         <div class="flex items-center">
           <div class="layout-lg flex items-center text-primary">
@@ -33,7 +34,6 @@
             :name="item.to.name"
             v-for="item in menuList"
             :key="item.title"
-            :to="item.to"
           >
             <Icon :type="icons[item.icon]"></Icon>
             {{ item.title }}
@@ -114,6 +114,13 @@ export default {
     }
   },
   methods: {
+    handleSelect(name) {
+      if (name !== this.environment) {
+        this.$router.push({
+          name
+        })
+      }
+    },
     runCode() {
       this.$store.dispatch("doRun");
     },
