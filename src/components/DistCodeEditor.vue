@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 14:33:29
- * @LastEditTime: 2021-03-12 15:09:06
+ * @LastEditTime: 2021-03-12 15:17:28
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -59,13 +59,6 @@ import "codemirror/addon/search/match-highlighter.js";
 import "codemirror/addon/selection/mark-selection.js";
 // keyMap
 import "codemirror/keymap/sublime.js";
-// lint
-import "codemirror/addon/lint/lint.js";
-import "codemirror/addon/lint/lint.css";
-import "codemirror/addon/lint/html-lint.js";
-import "codemirror/addon/lint/javascript-lint.js";
-require("htmlhint");
-require("jshint");
 
 import { getTemplate } from "@/api";
 
@@ -103,8 +96,7 @@ export default {
         styleActiveLine: true, // 启用该选项后，将为包含光标的行的包装器提供class CodeMirror-activeline
         hintOptions: {
           completeSingle: false
-        }, // 提供用于显示自动完成提示的框架
-        lint: true
+        } // 提供用于显示自动完成提示的框架
       }
     };
   },
