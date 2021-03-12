@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 14:33:29
- * @LastEditTime: 2021-03-12 15:17:28
+ * @LastEditTime: 2021-03-12 17:46:46
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -133,6 +133,16 @@ export default {
         this.code = res.code;
         this.initCode = this.code;
         await this.$nextTick();
+        this.$store.dispatch("doRun");
+      },
+      immediate: true
+    },
+    "$store.state.isUpload": {
+      handler(val) {
+        if (!val) {
+          return;
+        }
+        this.code = this.$store.state.code;
         this.$store.dispatch("doRun");
       },
       immediate: true

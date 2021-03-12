@@ -1,7 +1,7 @@
 /*
  * @Author: pimzh
  * @Date: 2021-03-09 15:36:48
- * @LastEditTime: 2021-03-11 10:14:07
+ * @LastEditTime: 2021-03-12 17:26:11
  * @LastEditors: pimzh
  * @Description:
  */
@@ -27,7 +27,8 @@ export default new Vuex.Store({
     }, // 组件环境对应的图标
     iconType: "",
     menu: [], // 侧边栏
-    seletedMenu: "" // 选中的侧边栏
+    seletedMenu: "", // 选中的侧边栏
+    isUpload: false
   },
 
   mutations: {
@@ -58,6 +59,9 @@ export default new Vuex.Store({
     SET_ENVIROMENT(state, environment) {
       state.environment = environment;
       state.iconType = state.icons[environment];
+    },
+    SET_UPLOAD(state, isUpload) {
+      state.isUpload = isUpload;
     }
   },
 
@@ -86,6 +90,13 @@ export default new Vuex.Store({
         !router.currentRoute.query.template &&
           commit("SET_SELECTED_MENU", res.components[0].name);
       }
+    },
+    async uploadCode({ commit }, code) {
+      commit("SET_CODE", code);
+      await Vue.nextTick();
+      commit("SET_UPLOAD", true);
+      await Vue.nextTick();
+      commit("SET_UPLOAD", false);
     }
   }
 });

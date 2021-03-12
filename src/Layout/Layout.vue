@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 11:05:29
- * @LastEditTime: 2021-03-12 10:48:31
+ * @LastEditTime: 2021-03-12 16:57:33
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -15,20 +15,7 @@
         :active-name="environment"
         @on-select="handleSelect"
       >
-        <div class="flex items-center">
-          <div class="layout-lg flex items-center text-primary">
-            <Icon class="vertical-mid" size="30" type="logo-codepen" />
-            <span class="text-big font-bold logo-title">vue online editor</span>
-          </div>
-          <ul class="flex items-center btns text-md">
-            <li class="btn" v-for="item in btns" :key="item.title">
-              <span class="btn-rel cursor-pointer" @click="item.event">
-                <Icon :type="item.icon" size="20" />
-                <span>{{ item.title }}</span>
-              </span>
-            </li>
-          </ul>
-        </div>
+        <header-left />
         <div class="llayout-box">
           <MenuItem
             :name="item.to.name"
@@ -54,33 +41,18 @@
 
 <script>
 import { mapState } from "vuex";
+import HeaderLeft from "./components/HeaderLeft.vue";
 import SiderMenu from "./components/SiderMenu.vue";
 
 export default {
   name: "layout",
   components: {
+    HeaderLeft,
     SiderMenu
   },
   data() {
     return {
       isCollapsed: false,
-      btns: [
-        {
-          title: "运行",
-          icon: "ios-play-outline",
-          event: this.runCode
-        },
-        {
-          title: "重置",
-          icon: "ios-refresh",
-          event: this.resetCode
-        },
-        {
-          title: "复制",
-          icon: "ios-copy-outline",
-          event: this.copyCode
-        }
-      ],
       menuList: [
         {
           title: "View Design",
@@ -117,24 +89,6 @@ export default {
           name
         });
       }
-    },
-    runCode() {
-      this.$store.dispatch("doRun");
-    },
-    resetCode() {
-      this.$store.dispatch("doReset");
-    },
-    async copyCode() {
-      const code = await this.$store.dispatch("doCopy");
-      const input = document.createElement("textarea");
-      document.body.appendChild(input);
-      input.value = code;
-      input.style.position = "absolute";
-      input.style.zIndex = -999;
-      input.select();
-      document.execCommand("Copy"); // 执行浏览器复制命令
-      this.$Message.success("复制成功！");
-      document.body.removeChild(input);
     }
   }
 };
@@ -169,12 +123,6 @@ export default {
 .header {
   padding: 0;
 }
-.layout-lg {
-  padding: 0 30px;
-}
-.logo-title {
-  margin-left: 5px;
-}
 .llayout-box {
   padding-right: 30px;
 }
@@ -183,11 +131,5 @@ export default {
 }
 .layout {
   border: none;
-}
-.btn {
-  margin-left: 15px;
-}
-.btn .btn-rel:hover {
-  color: #2d8cf0;
 }
 </style>
