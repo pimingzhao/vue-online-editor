@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 15:12:14
- * @LastEditTime: 2021-03-11 13:21:29
+ * @LastEditTime: 2021-03-12 15:03:14
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -73,14 +73,14 @@ export default {
         );
         const css = this.getResource(code, "style");
 
-        if (script === "" && template === "") {
+        if (script.trim() === "" && template.trim() === "") {
           return;
         }
         let childVue = {};
-        if (script !== "") {
+        if (script.trim() !== "") {
           childVue = new Function(script)();
         }
-        if (template !== "") {
+        if (template.trim() !== "") {
           childVue.template = template;
         }
 
@@ -88,7 +88,7 @@ export default {
         this.comp = new Profile().$mount();
         this.$refs.display.appendChild(this.comp.$el);
 
-        if (css !== "") {
+        if (css.trim() !== "") {
           const id = uuid();
           this.id = id;
           const style = document.createElement("style");

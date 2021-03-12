@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 11:05:29
- * @LastEditTime: 2021-03-11 16:21:28
+ * @LastEditTime: 2021-03-12 10:48:31
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -46,10 +46,7 @@
         <sider-menu :class="menuitemClasses" />
       </Sider>
       <Layout class="flex-1 flex flex-col">
-        <Content class="flex-1 overflow-y-auto">
-          <router-view class="w-full h-full container" />
-        </Content>
-        <div class="footer text-center">2021 &copy; copyright by pimzh</div>
+        <router-view class="w-full h-full container" />
       </Layout>
     </Layout>
   </Layout>
@@ -118,7 +115,7 @@ export default {
       if (name !== this.environment) {
         this.$router.push({
           name
-        })
+        });
       }
     },
     runCode() {
@@ -180,10 +177,6 @@ export default {
 }
 .llayout-box {
   padding-right: 30px;
-}
-.footer {
-  height: 50px;
-  line-height: 50px;
 }
 .container {
   padding: 15px 20px;

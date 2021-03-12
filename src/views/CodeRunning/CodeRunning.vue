@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 11:10:32
- * @LastEditTime: 2021-03-11 15:38:12
+ * @LastEditTime: 2021-03-12 09:16:38
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -15,14 +15,8 @@
 </template>
 
 <script>
-import { Button, Split } from "view-design";
-
 export default {
   name: "code-running",
-  components: {
-    Button,
-    Split
-  },
   data() {
     return {
       split: 0.5
