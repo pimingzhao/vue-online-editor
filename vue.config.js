@@ -1,6 +1,6 @@
 module.exports = {
   runtimeCompiler: true,
-  publicPath: "/vue-online-editor",
+  publicPath: "/",
   devServer: {
     open: true
   },
