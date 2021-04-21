@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 14:33:29
- * @LastEditTime: 2021-04-21 10:53:45
+ * @LastEditTime: 2021-04-21 15:58:10
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -60,7 +60,7 @@ import "codemirror/addon/selection/mark-selection.js";
 // keyMap
 import "codemirror/keymap/sublime.js";
 
-import { getTemplate } from "@/api";
+import { debounce } from "@/utils/tool";
 
 export default {
   name: "code-editor",
@@ -104,16 +104,22 @@ export default {
         return this.$store.state.code;
       },
       set(newVal) {
-        !this.$store.state.selectChange &&
-          this.$store.commit("SET_CODE", newVal);
+        const _this = this;
+        !this.$store.state.selectChange && this.updateCode(newVal);
       }
     }
+  },
+  created() {
+    this.updateCode = debounce(this.updateCode);
   },
   methods: {
     onCodeReady(codemirror) {
       codemirror.on("keypress", () => {
         codemirror.showHint();
       });
+    },
+    updateCode(newVal) {
+      this.$store.commit("SET_CODE", newVal);
     }
   }
 };

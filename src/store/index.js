@@ -1,7 +1,7 @@
 /*
  * @Author: pimzh
  * @Date: 2021-03-09 15:36:48
- * @LastEditTime: 2021-04-21 14:41:09
+ * @LastEditTime: 2021-04-21 15:38:06
  * @LastEditors: pimzh
  * @Description:
  */
@@ -40,6 +40,7 @@ export default new Vuex.Store({
         state.initCode = code.code;
         state.code = code.code;
       } else {
+        console.log("code update");
         state.code = code;
       }
     },

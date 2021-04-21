@@ -1,7 +1,7 @@
 /*
  * @Author: pimzh
  * @Date: 2021-03-09 16:55:05
- * @LastEditTime: 2021-04-21 14:24:16
+ * @LastEditTime: 2021-04-21 15:59:00
  * @LastEditors: pimzh
  * @Description:
  */
@@ -37,4 +37,20 @@ export const localStore = {
   clear: function() {
     localStorage.clear();
   }
+};
+// 防抖函数
+export const debounce = function(fn, wait = 300) {
+  let time;
+  return function() {
+    const args = arguments;
+    const _this = this;
+    if (time) {
+      clearTimeout(time);
+    }
+    time = setTimeout(() => {
+      fn.apply(_this, args);
+      clearTimeout(time);
+      time = null;
+    }, wait);
+  };
 };
