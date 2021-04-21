@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-10 17:30:04
- * @LastEditTime: 2021-03-11 09:57:25
+ * @LastEditTime: 2021-04-21 14:31:15
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -35,19 +35,23 @@ export default {
       return this.$store.state.menu || [];
     },
     iconType() {
-      return this.$store.state.iconType || [];
+      return this.$store.getters.iconType || [];
     },
     hasMenuList() {
       return this.menuList.length !== 0;
     },
     seletedMenu() {
-      return this.$route.query.template || "";
+      return this.$store.state.seletedMenu;
+    }
+  },
+  created() {
+    if (!this.$store.state.seletedMenu) {
+      this.$store.dispatch("setSelectedMenu", this.seletedMenu);
     }
   },
   methods: {
     handleSelect(name) {
-      // TODO: 页面刷新后state 会更新： fix it
-      this.$store.commit("SET_SELECTED_MENU", name);
+      this.$store.dispatch("setSelectedMenu", name);
     }
   }
 };
