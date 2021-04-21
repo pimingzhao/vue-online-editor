@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-10 17:30:04
- * @LastEditTime: 2021-04-21 12:32:27
+ * @LastEditTime: 2021-04-21 14:31:15
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -41,7 +41,7 @@ export default {
       return this.menuList.length !== 0;
     },
     seletedMenu() {
-      return this.$route.query.template || "";
+      return this.$store.state.seletedMenu;
     }
   },
   created() {

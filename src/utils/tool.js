@@ -1,7 +1,7 @@
 /*
  * @Author: pimzh
  * @Date: 2021-03-09 16:55:05
- * @LastEditTime: 2021-03-09 16:55:53
+ * @LastEditTime: 2021-04-21 14:24:16
  * @LastEditors: pimzh
  * @Description:
  */
@@ -22,4 +22,19 @@ export const uuid = () => {
   const uuid = s.join("");
 
   return uuid;
+};
+
+export const localStore = {
+  get: function(key) {
+    return localStorage.getItem(key);
+  },
+  set: function(key, val) {
+    localStorage.setItem(key, val);
+  },
+  remove: function(key) {
+    localStorage.removeItem(key);
+  },
+  clear: function() {
+    localStorage.clear();
+  }
 };

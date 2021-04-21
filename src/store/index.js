@@ -1,16 +1,16 @@
 /*
  * @Author: pimzh
  * @Date: 2021-03-09 15:36:48
- * @LastEditTime: 2021-04-21 13:24:28
+ * @LastEditTime: 2021-04-21 14:30:10
  * @LastEditors: pimzh
  * @Description:
  */
 import Vue from "vue";
 import Vuex from "vuex";
 
-import router from "@/router";
-
 import { getMenu, getTemplate } from "@/api";
+
+import { localStore } from "@/utils/tool";
 
 Vue.use(Vuex);
 
@@ -24,10 +24,12 @@ export default new Vuex.Store({
       ViewDesign: "logo-buffer",
       ElementUI: "logo-euro"
     }, // 组件环境对应的图标
-    menu: [], // 侧边栏
-    seletedMenu: "", // 选中的侧边栏
+    menu: [],
+    menuMap: null, // 菜单栏选项缓存
+    seletedMenu: localStore.get("template"), // 选中的侧边栏
     selectChange: false, // computed函数set在接收到get就会触发更新，用这个属性来阻止
-    isUpload: false
+    isUpload: false,
+    templateMap: null // 模板缓存
   },
 
   mutations: {
@@ -47,11 +49,7 @@ export default new Vuex.Store({
     },
     SET_SELECTED_MENU(state, seletedMenu) {
       state.seletedMenu = seletedMenu;
-      router.push({
-        query: {
-          template: seletedMenu
-        }
-      });
+      localStore.set("template", seletedMenu);
     },
     SET_MENU(state, menu) {
       state.menu = menu;
@@ -61,6 +59,24 @@ export default new Vuex.Store({
     },
     SET_UPLOAD(state, isUpload) {
       state.isUpload = isUpload;
+    },
+    SET_MENUMAP(state, payload) {
+      state.menuMap = Object.assign(state.menuMap || {}, payload);
+    },
+    SET_TEMPMAP(state, { name, res }) {
+      let obj;
+      if (!state.templateMap) {
+        obj = {};
+        obj[state.environment] = {};
+      } else if (state.environment in state.templateMap) {
+        obj = state.templateMap;
+      } else {
+        obj = state.templateMap;
+        obj[state.environment] = {};
+      }
+      obj[state.environment][name] = res;
+      state.templateMap = obj;
+      obj = null;
     }
   },
 
@@ -74,19 +90,25 @@ export default new Vuex.Store({
       commit("SET_CODE", state.initCode);
       dispatch("doRun");
     },
-    async setMenu({ commit, dispatch }, name) {
+    async setMenu({ state, commit, dispatch }, name) {
       commit("SET_ENVIROMENT", name);
-      const res = await getMenu(name);
+      let res;
+      if (state.menuMap && name in state.menuMap) {
+        res = state.menuMap[name];
+      } else {
+        res = await getMenu(name);
+        const obj = {};
+        obj[name] = res;
+        commit("SET_MENUMAP", obj);
+      }
       if (res) {
         commit("SET_MENU", res.components);
-        const query = router.currentRoute.query;
-        if (query.template) {
-          const canFind = res.components.some(
-            item => item.name === query.template
-          );
+        const template = localStore.get("template");
+        if (template) {
+          const canFind = res.components.some(item => item.name === template);
           dispatch(
             "setSelectedMenu",
-            canFind ? query.template : res.components[0].name
+            canFind ? template : res.components[0].name
           );
         } else {
           dispatch("setSelectedMenu", res.components[0].name);
@@ -98,7 +120,17 @@ export default new Vuex.Store({
       commit("SET_SELECTED_CHANGE", true);
       commit("SET_SELECTED_MENU", name);
 
-      const res = await getTemplate(state.environment, name);
+      let res;
+      if (
+        state.templateMap &&
+        state.environment in state.templateMap &&
+        name in state.templateMap[state.environment]
+      ) {
+        res = state.templateMap[state.environment][name];
+      } else {
+        res = await getTemplate(state.environment, name);
+        commit("SET_TEMPMAP", { name, res });
+      }
       commit("SET_CODE", {
         code: res,
         init: true
