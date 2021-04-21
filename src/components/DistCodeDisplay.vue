@@ -34,6 +34,9 @@ export default {
       immediate: true
     }
   },
+  beforeDestroy() {
+    this.handleReset();
+  },
   methods: {
     getResource(code, type) {
       const regex = new RegExp(`<${type}[^>]*>`);

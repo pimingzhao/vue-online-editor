@@ -1,7 +1,7 @@
 <!--
  * @Author: pimzh
  * @Date: 2021-03-09 14:33:29
- * @LastEditTime: 2021-03-12 17:46:46
+ * @LastEditTime: 2021-04-21 10:53:45
  * @LastEditors: pimzh
  * @Description: 
 -->
@@ -69,8 +69,6 @@ export default {
   },
   data() {
     return {
-      code: "",
-      initCode: "",
       options: {
         // 配置
         mode: "htmlmixed", // 模式类型
@@ -100,58 +98,18 @@ export default {
       }
     };
   },
-  watch: {
-    "$store.state.doRun": {
-      handler(val) {
-        this.handleDo(val);
+  computed: {
+    code: {
+      get() {
+        return this.$store.state.code;
       },
-      immediate: true
-    },
-    "$store.state.doReset": {
-      handler(val) {
-        if (!val) {
-          return;
-        }
-        this.code = this.initCode;
-        this.$store.dispatch("doRun");
-      },
-      immediate: true
-    },
-    "$store.state.doCopy": {
-      handler(val) {
-        this.handleDo(val);
-      },
-      immediate: true
-    },
-    "$route.query.template": {
-      async handler(val) {
-        if (!val) {
-          return;
-        }
-        const environment = this.$store.state.environment;
-        const res = await getTemplate(environment, val);
-        this.code = res.code;
-        this.initCode = this.code;
-        await this.$nextTick();
-        this.$store.dispatch("doRun");
-      },
-      immediate: true
-    },
-    "$store.state.isUpload": {
-      handler(val) {
-        if (!val) {
-          return;
-        }
-        this.code = this.$store.state.code;
-        this.$store.dispatch("doRun");
-      },
-      immediate: true
+      set(newVal) {
+        !this.$store.state.selectChange &&
+          this.$store.commit("SET_CODE", newVal);
+      }
     }
   },
   methods: {
-    handleDo(val) {
-      val && this.$store.commit("SET_CODE", this.code);
-    },
     onCodeReady(codemirror) {
       codemirror.on("keypress", () => {
         codemirror.showHint();

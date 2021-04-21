@@ -97,7 +97,7 @@ export default {
       this.$store.dispatch("doReset");
     },
     async copyCode() {
-      const code = await this.$store.dispatch("doCopy");
+      const code = this.$store.state.code;
       const input = document.createElement("textarea");
       document.body.appendChild(input);
       input.value = code;
@@ -121,7 +121,7 @@ export default {
     },
     importCode() {},
     async exploredCode({ name }) {
-      const code = await this.$store.dispatch("doCopy");
+      const code = this.$store.state.code;
       const link = document.createElement("a");
       const blob = new Blob([code]);
       link.href = window.URL.createObjectURL(blob);

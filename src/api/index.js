@@ -36,7 +36,7 @@ export const getMenu = async name => {
 
 export const getTemplate = async (name, codeName) => {
   try {
-    return await GET(`static/${name}/${codeName}.js`, "获取Layout");
+    return await GET(`static/${name}/${codeName}.vue`, "获取Layout");
   } catch {
     return null;
   }
