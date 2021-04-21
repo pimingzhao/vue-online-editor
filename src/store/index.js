@@ -1,7 +1,7 @@
 /*
  * @Author: pimzh
  * @Date: 2021-03-09 15:36:48
- * @LastEditTime: 2021-04-21 14:30:10
+ * @LastEditTime: 2021-04-21 14:41:09
  * @LastEditors: pimzh
  * @Description:
  */
@@ -28,7 +28,6 @@ export default new Vuex.Store({
     menuMap: null, // 菜单栏选项缓存
     seletedMenu: localStore.get("template"), // 选中的侧边栏
     selectChange: false, // computed函数set在接收到get就会触发更新，用这个属性来阻止
-    isUpload: false,
     templateMap: null // 模板缓存
   },
 
@@ -56,9 +55,6 @@ export default new Vuex.Store({
     },
     SET_ENVIROMENT(state, environment) {
       state.environment = environment;
-    },
-    SET_UPLOAD(state, isUpload) {
-      state.isUpload = isUpload;
     },
     SET_MENUMAP(state, payload) {
       state.menuMap = Object.assign(state.menuMap || {}, payload);
@@ -138,12 +134,10 @@ export default new Vuex.Store({
       await dispatch("doRun");
       commit("SET_SELECTED_CHANGE", false);
     },
-    async uploadCode({ commit }, code) {
+    async uploadCode({ commit, dispatch }, code) {
       commit("SET_CODE", code);
       await Vue.nextTick();
-      commit("SET_UPLOAD", true);
-      await Vue.nextTick();
-      commit("SET_UPLOAD", false);
+      dispatch("doRun");
     }
   },
 
