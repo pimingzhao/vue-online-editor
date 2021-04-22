@@ -1,7 +1,7 @@
 /*
  * @Author: pimzh
  * @Date: 2021-03-09 15:36:48
- * @LastEditTime: 2021-04-21 14:41:09
+ * @LastEditTime: 2021-04-22 09:23:48
  * @LastEditors: pimzh
  * @Description:
  */
@@ -60,14 +60,11 @@ export default new Vuex.Store({
       state.menuMap = Object.assign(state.menuMap || {}, payload);
     },
     SET_TEMPMAP(state, { name, res }) {
-      let obj;
-      if (!state.templateMap) {
+      let obj = state.templateMap;
+      if (!obj) {
         obj = {};
-        obj[state.environment] = {};
-      } else if (state.environment in state.templateMap) {
-        obj = state.templateMap;
-      } else {
-        obj = state.templateMap;
+      }
+      if (!Object.prototype.hasOwnProperty.call(obj, state.environment)) {
         obj[state.environment] = {};
       }
       obj[state.environment][name] = res;
