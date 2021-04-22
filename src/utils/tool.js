@@ -1,7 +1,7 @@
 /*
  * @Author: pimzh
  * @Date: 2021-03-09 16:55:05
- * @LastEditTime: 2021-04-21 15:59:00
+ * @LastEditTime: 2021-04-22 09:32:41
  * @LastEditors: pimzh
  * @Description:
  */
@@ -26,10 +26,19 @@ export const uuid = () => {
 
 export const localStore = {
   get: function(key) {
-    return localStorage.getItem(key);
+    const val = localStorage.getItem(key);
+    try {
+      return JSON.parse(val);
+    } catch {
+      return val;
+    }
   },
   set: function(key, val) {
-    localStorage.setItem(key, val);
+    if (typeof val === "string") {
+      localStorage.setItem(key, val);
+    } else {
+      localStorage.setItem(key, JSON.stringify(val));
+    }
   },
   remove: function(key) {
     localStorage.removeItem(key);

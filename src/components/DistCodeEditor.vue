@@ -104,7 +104,6 @@ export default {
         return this.$store.state.code;
       },
       set(newVal) {
-        const _this = this;
         !this.$store.state.selectChange && this.updateCode(newVal);
       }
     }
